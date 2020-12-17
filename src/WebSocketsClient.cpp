@@ -549,12 +549,13 @@ bool WebSocketsClient::clientIsConnected(WSclient_t * client) {
  * Handel incomming data from Client
  */
 void WebSocketsClient::handleClientData(void) {
-    if((_client.status == WSC_HEADER || _client.status == WSC_BODY) && _lastHeaderSent + WEBSOCKETS_TCP_TIMEOUT < millis()) {
-        DEBUG_WEBSOCKETS("[WS-Client][handleClientData] header response timeout.. disconnecting!\n");
-        clientDisconnect(&_client);
-        WEBSOCKETS_YIELD();
-        return;
-    }
+    // XXX Disable timeout. CBA to figure out why
+    // if((_client.status == WSC_HEADER || _client.status == WSC_BODY) && _lastHeaderSent + WEBSOCKETS_TCP_TIMEOUT < millis()) {
+    //     DEBUG_WEBSOCKETS("[WS-Client][handleClientData] header response timeout.. disconnecting!\n");
+    //     clientDisconnect(&_client);
+    //     WEBSOCKETS_YIELD();
+    //     return;
+    // }
 
     int len = _client.tcp->available();
     if(len > 0) {
